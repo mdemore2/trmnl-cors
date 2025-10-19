@@ -49,4 +49,6 @@ def read_surf():
 
 @app.get('/wx')
 def read_wx():
-    pass
+    with open('data/weather.json', 'r') as f:
+        data = json.load(f)
+        return data

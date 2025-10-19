@@ -48,7 +48,6 @@
        const data = await resp.json();
         if (data && typeof data === "object") {
           console.log(`Successfully extracted field.`);
-          console.log(data)
           let newsTgt = document.getElementById("title-tgt");
           newsTgt.innerHTML = data['tfa']['normalizedtitle'];
           let extractTgt = document.getElementById('extract-tgt');

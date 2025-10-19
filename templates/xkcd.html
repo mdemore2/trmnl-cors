@@ -41,6 +41,8 @@
             if (data && typeof data === "object" && 'img' in data) {
               console.log(`Successfully extracted field '${'img'}'.`);
               imgUrl = data['img'];
+              let imgTgt = document.getElementById("xkcd-tgt");
+              imgTgt.setAttribute("src", imgUrl);
             } else {
               throw new Error(
                 `Field '${'img'}' not found in the fetched JSON data, or data is invalid.`
@@ -51,8 +53,7 @@
           // Handle network errors, JSON parsing errors, and custom errors
           console.error("Fetch/Parse Error:", error.message);
         }
-        let imgTgt = document.getElementById("xkcd-tgt");
-        imgTgt.setAttribute("src", imgUrl);
+
       }
       fetchXKCDImg();
   </script>

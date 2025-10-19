@@ -36,26 +36,27 @@ async function fetchNews() {
       );
     } else {
        const data = await resp.json();
-              if (data && typeof data === "object") {
-                console.log(`Successfully extracted field.`);
-                content = data['article'];
-              } else {
-                throw new Error(
-                  `Field not found in the fetched JSON data, or data is invalid.`
-                );
-              }
+        if (data && typeof data === "object") {
+          console.log(`Successfully extracted field.`);
+          content = data['article'];
+          let newsTgt = document.getElementById("news-tgt");
+          newsTgt.innerHTML = content;
+          newsTgt = document.getElementById("news-tgt");
+          let imgs = newsTgt.getElementsByTagName('img');
+          Array.from(imgs).forEach(element => {
+            element.classList.add('image-dither', 'rounded', 'image', 'image--contain');
+          });
+        } else {
+          throw new Error(
+            `Field not found in the fetched JSON data, or data is invalid.`
+          );
+        }
     }
   } catch (error) {
     // Handle network errors, JSON parsing errors, and custom errors
     console.error("Fetch/Parse Error:", error.message);
   }
-  let newsTgt = document.getElementById("news-tgt");
-  newsTgt.innerHTML = content;
-  newsTgt = document.getElementById("news-tgt");
-  let imgs = newsTgt.getElementsByTagName('img');
-  Array.from(imgs).forEach(element => {
-    element.classList.add('image-dither', 'rounded', 'image', 'image--contain');
-  });
+
 
 }
 

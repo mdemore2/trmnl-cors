@@ -13,6 +13,7 @@ def query_all():
     query_xkcd()
     query_news()
     query_wikipedia()
+    query_weather()
 
 def query_xkcd():
     url = 'https://xkcd.com/info.0.json'
@@ -38,9 +39,9 @@ def query_wikipedia():
     app_name = os.getenv('WIKI_API_APP_NAME')
     url = f"https://api.wikimedia.org/feed/v1/wikipedia/en/featured/{today.year}/{today.month}/{today.day}"
     headers = {
-  'Authorization': f'Bearer {token}',
-  'User-Agent': f'{app_name}'
-}
+      'Authorization': f'Bearer {token}',
+      'User-Agent': f'{app_name}'
+    }
     resp = requests.get(url, headers=headers)
     logger.info(url)
     logger.info(resp)
@@ -49,3 +50,11 @@ def query_wikipedia():
         json.dump(data,f)
 
 
+def query_weather():
+    wx_key = os.getenv('WEATHER_API_KEY')
+    zip_code = os.getenv('WEATHER_ZIP_CODE')
+    url = f"http://api.weatherapi.com/v1/forecast.json?key={wx_key}&q={zip_code}&days=2&aqi=no&alerts=no"
+    resp = requests.get(url)
+    data = resp.json()
+    with open('data/weather.json','w+') as f:
+        json.dump(data,f)
