@@ -18,7 +18,7 @@
         </div>
 
         <div class="title_bar">
-            <img class="image" src="https://usetrmnl.com/images/plugins/trmnl--render.svg">
+            <img class="image" src="https://prod-eks-static-assets.npr.org/chrome_svg/npr-logo-2025.svg">
             <span class="image">NPR</span>
         </div>
     </div>
@@ -41,7 +41,7 @@ async function fetchNews() {
                 content = data['article'];
               } else {
                 throw new Error(
-                  `Field '${'img'}' not found in the fetched JSON data, or data is invalid.`
+                  `Field not found in the fetched JSON data, or data is invalid.`
                 );
               }
     }
