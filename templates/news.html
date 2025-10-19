@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://usetrmnl.com/css/latest/plugins.css"/>
+    <script src="https://usetrmnl.com/js/latest/plugins.js"></script>
+
+    <!-- Begin Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+          rel="stylesheet">
+    <!-- End Inter font -->
+</head>
+<body class="environment trmnl">
+<div class="screen">
+    <div class="view view--full">
+        <div id="news-tgt" class="layout layout--col gap--space-between">
+        </div>
+
+        <div class="title_bar">
+            <img class="image" src="https://usetrmnl.com/images/plugins/trmnl--render.svg">
+            <span class="image">NPR</span>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+async function fetchNews() {
+  let newsUrl = "http://127.0.0.1:8000/news";
+  try {
+    const resp = await fetch(newsUrl);
+
+    if (!resp.ok) {
+      throw new Error(
+        `HTTP error! Status: ${resp.status} - ${resp.statusText}`
+      );
+    } else {
+       const data = await resp.json();
+              if (data && typeof data === "object") {
+                console.log(`Successfully extracted field.`);
+                content = data['article'];
+              } else {
+                throw new Error(
+                  `Field '${'img'}' not found in the fetched JSON data, or data is invalid.`
+                );
+              }
+    }
+  } catch (error) {
+    // Handle network errors, JSON parsing errors, and custom errors
+    console.error("Fetch/Parse Error:", error.message);
+  }
+  let newsTgt = document.getElementById("news-tgt");
+  newsTgt.innerHTML = content;
+  newsTgt = document.getElementById("news-tgt");
+  let imgs = newsTgt.getElementsByTagName('img');
+  Array.from(imgs).forEach(element => {
+    element.classList.add('image-dither', 'rounded', 'image', 'image--contain');
+  });
+
+}
+
+fetchNews();
+</script>
+</html>
