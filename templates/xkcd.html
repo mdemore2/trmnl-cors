@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://usetrmnl.com/css/latest/plugins.css"/>
+    <script src="https://usetrmnl.com/js/latest/plugins.js"></script>
+
+
+    <!-- Begin Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+          rel="stylesheet">
+    <!-- End Inter font -->
+</head>
+<body class="environment trmnl">
+<div class="screen">
+    <div class="view view--full">
+        <div class="layout layout--col gap--space-between">
+            <img id="xkcd-tgt" class="image-dither">
+        </div>
+
+        <div class="title_bar">
+            <img class="image" src="https://usetrmnl.com/images/plugins/trmnl--render.svg">
+            <span class="title">XKCD</span>
+        </div>
+    </div>
+</div>
+</body>
+    <script>
+        async function fetchXKCDImg() {
+          let imgUrl = "https://imgs.xkcd.com/comics/null_hypothesis.png"; //default value in case error fetching
+          try {
+            const resp = await fetch("http://127.0.0.1:8000/xkcd");
+        
+            if (!resp.ok) {
+              throw new Error(
+                `HTTP error! Status: ${resp.status} - ${resp.statusText}`
+              );
+            } else {
+              const data = await resp.json();
+              if (data && typeof data === "object" && 'img' in data) {
+                console.log(`Successfully extracted field '${'img'}'.`);
+                imgUrl = data['img'];
+              } else {
+                throw new Error(
+                  `Field '${'img'}' not found in the fetched JSON data, or data is invalid.`
+                );
+              }
+            }
+          } catch (error) {
+            // Handle network errors, JSON parsing errors, and custom errors
+            console.error("Fetch/Parse Error:", error.message);
+          }
+          let imgTgt = document.getElementById("xkcd-tgt");
+          imgTgt.setAttribute("src", imgUrl);
+        }
+
+        fetchXKCDImg();
+    </script>
+</html>
