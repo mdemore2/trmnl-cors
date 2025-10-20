@@ -20,6 +20,11 @@ logging.basicConfig(
 def read_root():
     return {"Hello":"World"}
 
+@app.get('/refresh')
+def refresh_data():
+    query_all()
+    return "Ahh... refreshing :)"
+
 @app.get('/news')
 def read_news():
     with open('data/news.json', 'r') as f:
@@ -38,14 +43,12 @@ def read_wiki():
         data = json.load(f)
         return data
 
-@app.get('/refresh')
-def refresh_data():
-    query_all()
-    return "Ahh... refreshing :)"
-
 @app.get('/surf')
 def read_surf():
-    pass
+    with open('data/surf.json', 'r') as f:
+        data = json.load(f)
+        return data
+
 
 @app.get('/wx')
 def read_wx():

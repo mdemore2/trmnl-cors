@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://usetrmnl.com/css/latest/plugins.css"/>
+    <script src="https://usetrmnl.com/js/latest/plugins.js"></script>
+
+
+    <!-- Begin Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+          rel="stylesheet">
+    <!-- End Inter font -->
+</head>
+<body class="environment trmnl">
+<div class="screen">
+    <div class="view view--full">
+        <div class="layout layout--col layout--center gap--space-between">
+            <div class="flex flex--row flex--center-x flex--stretch gap--xxlarge">
+                <div class="flex flex--col flex--center-x flex--stretch gap--xxlarge">
+                    <div class="item">
+                    <div class="content">
+                      <span id="surf-height-tgt" class="value value--small" data-value-fit="true"></span>
+                      <span class="label">Surf Height</span>
+                    </div>
+                    </div>
+                    <div class="item flex flex--col">
+                    <div class="flex flex--bottom flex--left progress-dots progress-dots--large">
+                        <div id='rating-dots-parent' class="track">
+                          <div class="dot"></div>
+                          <div class="dot"></div>
+                          <div class="dot"></div>
+                          <div class="dot"></div>
+                          <div class="dot"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="content">
+                      <span id="surf-rating-tgt" class="value value--small" data-value-fit="true"></span>
+                      <span class="label">Condition Rating</span>
+                    </div>
+                    </div>
+                </div>
+                <div class="flex flex--col flex--center-x flex--stretch gap--xxlarge">
+                    <div class="item">
+                    <div class="content">
+                      <span id="wind-speed-tgt" class="value value--small" data-value-fit="true"></span>
+                        <span id="wind-dir-tgt" class="value value--small" data-value-fit="true"></span>
+                      <span class="label">Winds</span>
+                    </div>
+                    </div>
+                     <div class="item">
+                    <div class="content">
+                      <span id="water-temp-tgt" class="value value--small" data-value-fit="true"></span>
+                      <span class="label">Water Temperature</span>
+                    </div>
+                    </div>
+                     <div class="item">
+                    <div class="content">
+                      <span id="tide-state-tgt" class="value value--small" data-value-fit="true"></span>
+                      <span class="label">Tides</span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <span id="condition-tgt" class="text--black"></span>
+            </div>
+        </div>
+
+        <div class="title_bar">
+            <img class="image" src="https://www.surfline.com/favicon.ico">
+            <span class="image">Surfline</span>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+ async function fetchSurf() {
+  let surfUrl = "http://127.0.0.1:8000/surf";
+  try {
+    const resp = await fetch(surfUrl);
+
+    if (!resp.ok) {
+      throw new Error(
+        `HTTP error! Status: ${resp.status} - ${resp.statusText}`
+      );
+    } else {
+       const data = await resp.json();
+        if (data && typeof data === "object") {
+          console.log(`Successfully extracted field.`);
+
+            let myTgt = document.getElementById('surf-height-tgt');
+            myTgt.innerHTML = `${data['waves_min']} - ${data['waves_max']}ft`;
+
+            myTgt = document.getElementById('surf-rating-tgt');
+            myTgt.innerHTML = data['rating_desc'];
+
+            myTgt = document.getElementById('rating-dots-parent');
+            console.log(myTgt)
+            let dotChildren = myTgt.getElementsByTagName('div');
+            for (var i = 0; i < data['rating_num']; i++){
+                dotChildren[i].classList.add('dot--filled');
+            }
+
+            myTgt = document.getElementById('condition-tgt');
+            myTgt.innerHTML = data['condition'];
+
+            myTgt = document.getElementById('wind-speed-tgt');
+            myTgt.innerHTML = `${Math.round(data['wind_speed'])} kts`;
+                        
+            myTgt = document.getElementById('wind-dir-tgt');
+            myTgt.innerHTML = data['wind_dir'];
+
+            myTgt = document.getElementById('water-temp-tgt');
+            myTgt.innerHTML = `${Math.round(data['water_temp'])} °F`;
+
+            myTgt = document.getElementById('tide-state-tgt');
+            myTgt.innerHTML = data['tide_state'];
+
+
+        } else {
+          throw new Error(
+            `Field not found in the fetched JSON data, or data is invalid.`
+          );
+        }
+    }
+  } catch (error) {
+    // Handle network errors, JSON parsing errors, and custom errors
+    console.error("Fetch/Parse Error:", error.message);
+  }
+
+
+}
+
+fetchSurf();
+</script>
+</html>
