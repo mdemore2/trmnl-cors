@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from query import query_all
+from terminus import reload
 import json
 import logging
 
@@ -23,6 +24,7 @@ def read_root():
 @app.get('/refresh')
 def refresh_data():
     query_all()
+    reload()
     return "Ahh... refreshing :)"
 
 @app.get('/news')

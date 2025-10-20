@@ -108,12 +108,12 @@
   </body>
   <script>
     async function refreshPassthrough() {
-      let refreshUrl = "http://127.0.0.1:8032/refresh";
+      let refreshUrl = "http://trmnl-cors:8032/refresh";
       const resp = await fetch(refreshUrl);
     }
 
     async function fetchSurf() {
-      let surfUrl = "http://127.0.0.1:8032/surf";
+      let surfUrl = "http://trmnl-cors:8032/surf";
       try {
         const resp = await fetch(surfUrl);
 

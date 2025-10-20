@@ -46,12 +46,12 @@
   </body>
   <script>
     async function refreshPassthrough() {
-      let refreshUrl = "http://127.0.0.1:8032/refresh";
+      let refreshUrl = "http://trmnl-cors:8032/refresh";
       const resp = await fetch(refreshUrl);
     }
 
     async function fetchWiki() {
-      let wikiUrl = "http://127.0.0.1:8032/wiki";
+      let wikiUrl = "http://trmnl-cors:8032/wiki";
       try {
         const resp = await fetch(wikiUrl);
 

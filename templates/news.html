@@ -30,12 +30,12 @@
   </body>
   <script>
     async function refreshPassthrough() {
-      let refreshUrl = "http://127.0.0.1:8032/refresh";
+      let refreshUrl = "http://trmnl-cors:8032/refresh";
       const resp = await fetch(refreshUrl);
     }
 
     async function fetchNews() {
-      let newsUrl = "http://127.0.0.1:8032/news";
+      let newsUrl = "http://trmnl-cors:8032/news";
       try {
         const resp = await fetch(newsUrl);
 
