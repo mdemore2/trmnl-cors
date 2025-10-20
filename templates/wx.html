@@ -230,7 +230,7 @@
   </body>
   <script>
     async function refreshPassthrough() {
-      let refreshUrl = "http://127.0.0.1/refresh";
+      let refreshUrl = "http://127.0.0.1:8032/refresh";
       const resp = await fetch(refreshUrl);
     }
 
@@ -261,7 +261,7 @@
             myTgt.innerHTML = currentCondition;
 
             myTgt = document.getElementById("current-condition-icon-tgt");
-            myTgt.setAttribute("src", currentConditionIcon);
+            myTgt.setAttribute("src", `http:${currentConditionIcon}`);
 
             myTgt = document.getElementById("current-temp-tgt");
             myTgt.innerHTML = `${Math.round(currentTemp)}°`;
@@ -287,7 +287,7 @@
             myTgt.innerHTML = todayCondition;
 
             myTgt = document.getElementById("today-condition-icon-tgt");
-            myTgt.setAttribute("src", todayConditionIcon);
+            myTgt.setAttribute("src", `http:${todayConditionIcon}`);
 
             myTgt = document.getElementById("today-high-tgt");
             myTgt.innerHTML = `${Math.round(todayHigh)}°`;
@@ -313,7 +313,7 @@
             myTgt.innerHTML = tomorrowCondition;
 
             myTgt = document.getElementById("tomorrow-condition-icon-tgt");
-            myTgt.setAttribute("src", tomorrowConditionIcon);
+            myTgt.setAttribute("src", `http:${tomorrowConditionIcon}`);
 
             myTgt = document.getElementById("tomorrow-high-tgt");
             myTgt.innerHTML = `${Math.round(tomorrowHigh)}°`;
