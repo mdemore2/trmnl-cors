@@ -1,276 +1,340 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" href="https://usetrmnl.com/css/latest/plugins.css"/>
+  <head>
+    <link rel="stylesheet" href="https://usetrmnl.com/css/latest/plugins.css" />
     <script src="https://usetrmnl.com/js/latest/plugins.js"></script>
 
-
     <!-- Begin Inter font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-          rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
     <style>
-        .material-symbols-outlined {
-          font-variation-settings:
-          'FILL' 0,
-          'wght' 400,
-          'GRAD' 0,
-          'opsz' 24
-        }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
     </style>
     <!-- End Inter font -->
-</head>
-<body class="environment trmnl">
-<div class="screen">
-<div class="view view--full">
-  <div class="layout layout--col gap--space-between">
-    <div class="grid">
-      <div class="row row--center col--span-3 col--end">
-        <img id='current-condition-icon-tgt' class="weather-image" />
-      </div>
-      <div class="col col--span-3 col--end">
-        <div class="item h--full">
-          <div class="meta"></div>
-          <div class="content">
-            <span id="current-temp-tgt" class="value value--xxxlarge" data-fit-value="true"></span>
-            <span class="label">Temperature</span>
+  </head>
+  <body class="environment trmnl">
+    <div class="screen">
+      <div class="view view--full">
+        <div class="layout layout--col gap--space-between">
+          <div class="grid">
+            <div class="row row--center col--span-3 col--end">
+              <img id="current-condition-icon-tgt" class="weather-image" />
+            </div>
+            <div class="col col--span-3 col--end">
+              <div class="item h--full">
+                <div class="meta"></div>
+                <div class="content">
+                  <span
+                    id="current-temp-tgt"
+                    class="value value--xxxlarge"
+                    data-fit-value="true"
+                  ></span>
+                  <span class="label">Temperature</span>
+                </div>
+              </div>
+            </div>
+            <div class="col col--span-3 col--end gap--medium">
+              <div class="item">
+                <div class="meta"></div>
+                <div class="icon">
+                  <span class="material-symbols-outlined"
+                    >device_thermostat</span
+                  >
+                </div>
+                <div class="content">
+                  <span
+                    id="current-feels-like-tgt"
+                    class="value value--small"
+                  ></span>
+                  <span class="label">Feels Like</span>
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="meta"></div>
+                <div class="icon">
+                  <span class="material-symbols-outlined"
+                    >humidity_percentage</span
+                  >
+                </div>
+                <div class="content">
+                  <span
+                    id="current-humidity-tgt"
+                    class="value value--small"
+                  ></span>
+                  <span class="label">Humidity</span>
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="meta"></div>
+                <div class="icon">
+                  <img id="current-condition-icon-tgt" class="weather-icon" />
+                </div>
+                <div class="content">
+                  <span
+                    id="current-conditions-tgt"
+                    class="value value--xsmall"
+                  ></span>
+                  <span class="label">Right Now</span>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="col col--span-3 col--end gap--medium">
-        <div class="item">
-          <div class="meta"></div>
-          <div class="icon">
-            <span class="material-symbols-outlined">device_thermostat</span>          
-        </div>
-          <div class="content">
-            <span id="current-feels-like-tgt" class="value value--small"></span>
-            <span class="label">Feels Like</span>
+
+          <div class="w-full b-h-gray-5"></div>
+
+          <div class="grid">
+            <div class="col gap--large">
+              <div class="grid">
+                <div class="item col--span-3">
+                  <div class="meta"></div>
+                  <div class="icon">
+                    <img id="today-condition-icon-tgt" class="weather-icon" />
+                  </div>
+                  <div class="content">
+                    <span
+                      id="today-condition-tgt"
+                      class="value value--xsmall"
+                    ></span>
+                    <span class="label">Today</span>
+                  </div>
+                </div>
+
+                <div class="item col--span-3">
+                  <div class="meta"></div>
+                  <div class="icon">
+                    <span class="material-symbols-outlined"
+                      >humidity_percentage</span
+                    >
+                  </div>
+                  <div class="content">
+                    <span
+                      id="today-humidity-tgt"
+                      class="value value--xsmall"
+                    ></span>
+                    <span class="label">Humidity</span>
+                  </div>
+                </div>
+
+                <div class="row col--span-3">
+                  <div class="item">
+                    <div class="meta"></div>
+                    <div class="icon">
+                      <span class="material-symbols-outlined"
+                        >device_thermostat</span
+                      >
+                    </div>
+                    <div class="row">
+                      <div class="content w--20">
+                        <span
+                          id="today-low-tgt"
+                          class="value value--small"
+                        ></span>
+                        <span class="label">Low</span>
+                      </div>
+                      <div class="content w--20">
+                        <span
+                          id="today-high-tgt"
+                          class="value value--small"
+                        ></span>
+                        <span class="label">High</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid">
+                <div class="item col--span-3">
+                  <div class="meta"></div>
+                  <div class="icon">
+                    <img
+                      id="tomorrow-condition-icon-tgt"
+                      class="weather-icon"
+                    />
+                  </div>
+                  <div class="content">
+                    <span
+                      id="tomorrow-condition-tgt"
+                      class="value value--xsmall"
+                    ></span>
+                    <span class="label">Tomorrow</span>
+                  </div>
+                </div>
+
+                <div class="item col--span-3">
+                  <div class="meta"></div>
+                  <div class="icon">
+                    <span class="material-symbols-outlined"
+                      >humidity_percentage</span
+                    >
+                  </div>
+                  <div class="content">
+                    <span
+                      id="tomorrow-humidity-tgt"
+                      class="value value--xsmall"
+                    ></span>
+                    <span class="label">Humidity</span>
+                  </div>
+                </div>
+
+                <div class="row col--span-3">
+                  <div class="item">
+                    <div class="meta"></div>
+                    <div class="icon">
+                      <span class="material-symbols-outlined"
+                        >device_thermostat</span
+                      >
+                    </div>
+                    <div class="row">
+                      <div class="content w--20">
+                        <span
+                          id="tomorrow-low-tgt"
+                          class="value value--small"
+                        ></span>
+                        <span class="label">Low</span>
+                      </div>
+                      <div class="content w--20">
+                        <span
+                          id="tomorrow-high-tgt"
+                          class="value value--small"
+                        ></span>
+                        <span class="label">High</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="item">
-          <div class="meta"></div>
-          <div class="icon">
-            <span class="material-symbols-outlined">humidity_percentage</span>
-          </div>
-          <div class="content">
-            <span id="current-humidity-tgt" class="value value--small"></span>
-            <span class="label">Humidity</span>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="meta"></div>
-          <div class="icon">
-            <img id="current-condition-icon-tgt" class="weather-icon" />
-          </div>
-          <div class="content">
-            <span id="current-conditions-tgt" class="value value--xsmall"></span>
-            <span class="label">Right Now</span>
-          </div>
+        <div class="title_bar">
+          <span class="material-symbols-outlined">umbrella</span>
+          <h1 class="title">Weather</h1>
+          <span id="location-name-tgt" class="instance"></span>
         </div>
       </div>
     </div>
-
-    <div class="w-full b-h-gray-5"></div>
-
-    <div class="grid">
-      <div class="col gap--large">
-        <div class="grid">
-          <div class="item col--span-3">
-            <div class="meta"></div>
-            <div class="icon">
-              <img id="today-condition-icon-tgt" class="weather-icon"/>
-            </div>
-            <div class="content">
-              <span id="today-condition-tgt" class="value value--xsmall"></span>
-              <span class="label">Today</span>
-            </div>
-          </div>
-
-          <div class="item col--span-3">
-            <div class="meta"></div>
-            <div class="icon">
-            <span class="material-symbols-outlined">humidity_percentage</span>
-            </div>
-            <div class="content">
-              <span id="today-humidity-tgt" class="value value--xsmall"></span>
-              <span class="label">Humidity</span>
-            </div>
-          </div>
-
-          <div class="row col--span-3">
-            <div class="item">
-              <div class="meta"></div>
-              <div class="icon">
-                <span class="material-symbols-outlined">device_thermostat</span>              
-            </div>
-              <div class="row">
-                <div class="content w--20">
-                  <span id="today-low-tgt" class="value value--small"></span>
-                  <span class="label">Low</span>
-                </div>
-                <div class="content w--20">
-                  <span id="today-high-tgt" class="value value--small"></span>
-                  <span class="label">High</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid">
-          <div class="item col--span-3">
-            <div class="meta"></div>
-            <div class="icon">
-              <img id="tomorrow-condition-icon-tgt" class="weather-icon"  />
-            </div>
-            <div class="content">
-              <span id="tomorrow-condition-tgt" class="value value--xsmall"></span>
-              <span class="label">Tomorrow</span>
-            </div>
-          </div>
-
-          <div class="item col--span-3">
-            <div class="meta"></div>
-            <div class="icon">
-            <span class="material-symbols-outlined">humidity_percentage</span>
-            </div>
-            <div class="content">
-              <span id="tomorrow-humidity-tgt" class="value value--xsmall"></span>
-              <span class="label">Humidity</span>
-            </div>
-          </div>
-
-          <div class="row col--span-3">
-            <div class="item">
-              <div class="meta"></div>
-              <div class="icon">
-                <span class="material-symbols-outlined">device_thermostat</span>              
-              </div>
-              <div class="row">
-                <div class="content w--20">
-                  <span id="tomorrow-low-tgt" class="value value--small"></span>
-                  <span class="label">Low</span>
-                </div>
-                <div class="content w--20">
-                  <span id="tomorrow-high-tgt" class="value value--small"></span>
-                  <span class="label">High</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="title_bar">
-    <span class="material-symbols-outlined">umbrella</span>    
-    <h1 class="title">Weather</h1>
-    <span id="location-name-tgt" class="instance"></span>
-  </div>
-</div>
-</div>
-</body>
-<script>
-async function fetchWeather() {
-  let wxUrl = "http://127.0.0.1:8032/wx";
-  try {
-    const resp = await fetch(wxUrl);
-
-    if (!resp.ok) {
-      throw new Error(
-        `HTTP error! Status: ${resp.status} - ${resp.statusText}`
-      );
-    } else {
-       const data = await resp.json();
-        if (data && typeof data === "object") {
-          console.log(`Successfully extracted field.`);
-          let locationName = data['location']['name'];
-          let currentCondition = data['current']['condition']['text'];
-          let currentConditionIcon = data['current']['condition']['icon'];
-          let currentTemp = data['current']['temp_f'];
-          let currentFeelsLike = data['current']['feelslike_f'];
-          let currentHumidity = data['current']['humidity'];
-
-          let myTgt = document.getElementById('location-name-tgt');
-          myTgt.innerHTML = locationName;
-
-          myTgt = document.getElementById('current-conditions-tgt');
-          myTgt.innerHTML = currentCondition;
-
-          myTgt = document.getElementById('current-condition-icon-tgt');
-          myTgt.setAttribute('src', currentConditionIcon);
-
-          myTgt = document.getElementById('current-temp-tgt');
-          myTgt.innerHTML = `${Math.round(currentTemp)}°`;
-
-          myTgt = document.getElementById('current-feels-like-tgt');
-          myTgt.innerHTML = `${Math.round(currentFeelsLike)}°`;
-
-          myTgt = document.getElementById('current-humidity-tgt');
-          myTgt.innerHTML = `${currentHumidity}%`;
-
-          let todayCondition = data['forecast']['forecastday'][0]['day']['condition']['text'];
-          let todayConditionIcon = data['forecast']['forecastday'][0]['day']['condition']['icon'];
-          let todayHigh = data['forecast']['forecastday'][0]['day']['maxtemp_f'];
-          let todayLow = data['forecast']['forecastday'][0]['day']['mintemp_f'];
-          let todayHumidity = data['forecast']['forecastday'][0]['day']['avghumidity'];
-
-          myTgt = document.getElementById('today-condition-tgt');
-          myTgt.innerHTML = todayCondition;
-
-          myTgt = document.getElementById('today-condition-icon-tgt');
-          myTgt.setAttribute('src', todayConditionIcon);
-
-          myTgt = document.getElementById('today-high-tgt');
-          myTgt.innerHTML = `${Math.round(todayHigh)}°`;
-
-          myTgt = document.getElementById('today-low-tgt');
-          myTgt.innerHTML = `${Math.round(todayLow)}°`;
-
-          myTgt = document.getElementById('today-humidity-tgt');
-          myTgt.innerHTML = `${todayHumidity}%`;
-
-          let tomorrowCondition = data['forecast']['forecastday'][1]['day']['condition']['text'];
-          let tomorrowConditionIcon = data['forecast']['forecastday'][1]['day']['condition']['icon'];
-          let tomorrowHigh = data['forecast']['forecastday'][1]['day']['maxtemp_f'];
-          let tomorrowLow = data['forecast']['forecastday'][1]['day']['mintemp_f'];
-          let tomorrowHumidity = data['forecast']['forecastday'][1]['day']['avghumidity'];
-
-          myTgt = document.getElementById('tomorrow-condition-tgt');
-          myTgt.innerHTML = tomorrowCondition;
-
-          myTgt = document.getElementById('tomorrow-condition-icon-tgt');
-          myTgt.setAttribute('src', tomorrowConditionIcon);
-
-          myTgt = document.getElementById('tomorrow-high-tgt');
-          myTgt.innerHTML = `${Math.round(tomorrowHigh)}°`;
-
-          myTgt = document.getElementById('tomorrow-low-tgt');
-          myTgt.innerHTML = `${Math.round(tomorrowLow)}°`;
-
-          myTgt = document.getElementById('tomorrow-humidity-tgt');
-          myTgt.innerHTML = `${tomorrowHumidity}%`;
-
-        } else {
-          throw new Error(
-            `Field not found in the fetched JSON data, or data is invalid.`
-          );
-        }
+  </body>
+  <script>
+    async function refreshPassthrough() {
+      let refreshUrl = "http://127.0.0.1/refresh";
+      const resp = await fetch(refreshUrl);
     }
-  } catch (error) {
-    // Handle network errors, JSON parsing errors, and custom errors
-    console.error("Fetch/Parse Error:", error.message);
-  }
 
+    async function fetchWeather() {
+      let wxUrl = "http://127.0.0.1:8032/wx";
+      try {
+        const resp = await fetch(wxUrl);
 
-}
+        if (!resp.ok) {
+          throw new Error(
+            `HTTP error! Status: ${resp.status} - ${resp.statusText}`
+          );
+        } else {
+          const data = await resp.json();
+          if (data && typeof data === "object") {
+            console.log(`Successfully extracted field.`);
+            let locationName = data["location"]["name"];
+            let currentCondition = data["current"]["condition"]["text"];
+            let currentConditionIcon = data["current"]["condition"]["icon"];
+            let currentTemp = data["current"]["temp_f"];
+            let currentFeelsLike = data["current"]["feelslike_f"];
+            let currentHumidity = data["current"]["humidity"];
 
-fetchWeather();
-</script>
+            let myTgt = document.getElementById("location-name-tgt");
+            myTgt.innerHTML = locationName;
+
+            myTgt = document.getElementById("current-conditions-tgt");
+            myTgt.innerHTML = currentCondition;
+
+            myTgt = document.getElementById("current-condition-icon-tgt");
+            myTgt.setAttribute("src", currentConditionIcon);
+
+            myTgt = document.getElementById("current-temp-tgt");
+            myTgt.innerHTML = `${Math.round(currentTemp)}°`;
+
+            myTgt = document.getElementById("current-feels-like-tgt");
+            myTgt.innerHTML = `${Math.round(currentFeelsLike)}°`;
+
+            myTgt = document.getElementById("current-humidity-tgt");
+            myTgt.innerHTML = `${currentHumidity}%`;
+
+            let todayCondition =
+              data["forecast"]["forecastday"][0]["day"]["condition"]["text"];
+            let todayConditionIcon =
+              data["forecast"]["forecastday"][0]["day"]["condition"]["icon"];
+            let todayHigh =
+              data["forecast"]["forecastday"][0]["day"]["maxtemp_f"];
+            let todayLow =
+              data["forecast"]["forecastday"][0]["day"]["mintemp_f"];
+            let todayHumidity =
+              data["forecast"]["forecastday"][0]["day"]["avghumidity"];
+
+            myTgt = document.getElementById("today-condition-tgt");
+            myTgt.innerHTML = todayCondition;
+
+            myTgt = document.getElementById("today-condition-icon-tgt");
+            myTgt.setAttribute("src", todayConditionIcon);
+
+            myTgt = document.getElementById("today-high-tgt");
+            myTgt.innerHTML = `${Math.round(todayHigh)}°`;
+
+            myTgt = document.getElementById("today-low-tgt");
+            myTgt.innerHTML = `${Math.round(todayLow)}°`;
+
+            myTgt = document.getElementById("today-humidity-tgt");
+            myTgt.innerHTML = `${todayHumidity}%`;
+
+            let tomorrowCondition =
+              data["forecast"]["forecastday"][1]["day"]["condition"]["text"];
+            let tomorrowConditionIcon =
+              data["forecast"]["forecastday"][1]["day"]["condition"]["icon"];
+            let tomorrowHigh =
+              data["forecast"]["forecastday"][1]["day"]["maxtemp_f"];
+            let tomorrowLow =
+              data["forecast"]["forecastday"][1]["day"]["mintemp_f"];
+            let tomorrowHumidity =
+              data["forecast"]["forecastday"][1]["day"]["avghumidity"];
+
+            myTgt = document.getElementById("tomorrow-condition-tgt");
+            myTgt.innerHTML = tomorrowCondition;
+
+            myTgt = document.getElementById("tomorrow-condition-icon-tgt");
+            myTgt.setAttribute("src", tomorrowConditionIcon);
+
+            myTgt = document.getElementById("tomorrow-high-tgt");
+            myTgt.innerHTML = `${Math.round(tomorrowHigh)}°`;
+
+            myTgt = document.getElementById("tomorrow-low-tgt");
+            myTgt.innerHTML = `${Math.round(tomorrowLow)}°`;
+
+            myTgt = document.getElementById("tomorrow-humidity-tgt");
+            myTgt.innerHTML = `${tomorrowHumidity}%`;
+          } else {
+            throw new Error(
+              `Field not found in the fetched JSON data, or data is invalid.`
+            );
+          }
+        }
+      } catch (error) {
+        // Handle network errors, JSON parsing errors, and custom errors
+        console.error("Fetch/Parse Error:", error.message);
+      }
+    }
+    refreshPassthrough();
+    fetchWeather();
+  </script>
 </html>

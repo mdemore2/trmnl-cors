@@ -1,71 +1,84 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" href="https://usetrmnl.com/css/latest/plugins.css"/>
+  <head>
+    <link rel="stylesheet" href="https://usetrmnl.com/css/latest/plugins.css" />
     <script src="https://usetrmnl.com/js/latest/plugins.js"></script>
 
-
     <!-- Begin Inter font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <!-- End Inter font -->
-</head>
-<body class="environment trmnl">
-<div class="screen">
-    <div class="view view--full">
-      <div class="layout" lang="{{ trmnl.plugin_settings.custom_fields_values.language }}">
-        <div class="columns wiki-columns">
-          <div class="column wiki-column">
-            <div class="richtext richtext--center gap--medium wiki-richtext">
-              <span id="title-tgt" class="title text--center" dir="auto"></span>
-              <div id="extract-tgt" class="content" dir="auto">
+  </head>
+  <body class="environment trmnl">
+    <div class="screen">
+      <div class="view view--full">
+        <div
+          class="layout"
+          lang="{{ trmnl.plugin_settings.custom_fields_values.language }}"
+        >
+          <div class="columns wiki-columns">
+            <div class="column wiki-column">
+              <div class="richtext richtext--center gap--medium wiki-richtext">
+                <span
+                  id="title-tgt"
+                  class="title text--center"
+                  dir="auto"
+                ></span>
+                <div id="extract-tgt" class="content" dir="auto"></div>
               </div>
             </div>
           </div>
         </div>
-    </div>
 
-    <div class="title_bar">
-        <img class="image image-stroke" src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Wikipedia%27s_W.svg">
-        <span class="title">Article of the Day</span>
+        <div class="title_bar">
+          <img
+            class="image image-stroke"
+            src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Wikipedia%27s_W.svg"
+          />
+          <span class="title">Article of the Day</span>
+        </div>
+      </div>
     </div>
-    </div>
-</div>
-</body>
-<script>
-    async function fetchWiki() {
-  let wikiUrl = "http://127.0.0.1:8032/wiki";
-  try {
-    const resp = await fetch(wikiUrl);
-
-    if (!resp.ok) {
-      throw new Error(
-        `HTTP error! Status: ${resp.status} - ${resp.statusText}`
-      );
-    } else {
-       const data = await resp.json();
-        if (data && typeof data === "object") {
-          console.log(`Successfully extracted field.`);
-          let newsTgt = document.getElementById("title-tgt");
-          newsTgt.innerHTML = data['tfa']['normalizedtitle'];
-          let extractTgt = document.getElementById('extract-tgt');
-          extractTgt.innerHTML = data['tfa']['extract_html'];
-        } else {
-          throw new Error(
-            `Field not found in the fetched JSON data, or data is invalid.`
-          );
-        }
+  </body>
+  <script>
+    async function refreshPassthrough() {
+      let refreshUrl = "http://127.0.0.1/refresh";
+      const resp = await fetch(refreshUrl);
     }
-  } catch (error) {
-    // Handle network errors, JSON parsing errors, and custom errors
-    console.error("Fetch/Parse Error:", error.message);
-  }
 
+    async function fetchWiki() {
+      let wikiUrl = "http://127.0.0.1:8032/wiki";
+      try {
+        const resp = await fetch(wikiUrl);
 
-}
-
-fetchWiki();
-</script>
+        if (!resp.ok) {
+          throw new Error(
+            `HTTP error! Status: ${resp.status} - ${resp.statusText}`
+          );
+        } else {
+          const data = await resp.json();
+          if (data && typeof data === "object") {
+            console.log(`Successfully extracted field.`);
+            let newsTgt = document.getElementById("title-tgt");
+            newsTgt.innerHTML = data["tfa"]["normalizedtitle"];
+            let extractTgt = document.getElementById("extract-tgt");
+            extractTgt.innerHTML = data["tfa"]["extract_html"];
+          } else {
+            throw new Error(
+              `Field not found in the fetched JSON data, or data is invalid.`
+            );
+          }
+        }
+      } catch (error) {
+        // Handle network errors, JSON parsing errors, and custom errors
+        console.error("Fetch/Parse Error:", error.message);
+      }
+    }
+    refreshPassthrough();
+    fetchWiki();
+  </script>
 </html>
