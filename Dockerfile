@@ -9,4 +9,8 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 COPY ./app /code/app
 
-CMD ["fastapi", "run", "app/main.py", "--port", "80"]
+COPY ./data /code/data
+
+EXPOSE 8032
+
+CMD ["fastapi", "run", "app/main.py", "--port", "8032"]

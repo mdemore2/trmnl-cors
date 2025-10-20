@@ -30,7 +30,7 @@
       async function fetchXKCDImg() {
         let imgUrl = "https://imgs.xkcd.com/comics/null_hypothesis.png"; //default value in case error fetching
         try {
-          const resp = await fetch("http://127.0.0.1:8000/xkcd");
+          const resp = await fetch("http://127.0.0.1:8032/xkcd");
       
           if (!resp.ok) {
             throw new Error(
