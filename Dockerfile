@@ -11,6 +11,8 @@ COPY ./app /code/app
 
 COPY ./data /code/data
 
+COPY ./.env /code/.env
+
 EXPOSE 8032
 
 CMD ["fastapi", "run", "app/main.py", "--port", "8032"]
