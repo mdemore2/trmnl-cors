@@ -5,6 +5,7 @@ import json
 from dotenv import load_dotenv
 from pydantic import BaseModel
 from typing import List
+from bs4 import BeautifulSoup
 
 load_dotenv()
 terminus_url = os.getenv('TERMINUS_URL')
@@ -30,7 +31,7 @@ def add_screen(name: str, content: str, model_id:int) -> int:
         'file_name':f'{prefixed_name}.png',
         'model_id': str(model_id)
     }}
-    headers = {'Content-type': 'application/json'}
+    headers = {'Content-Type': 'application/json'}
     resp = requests.post(url=f'{terminus_base_url}/api/screens', headers=headers, json=data)
     screen = resp.json()
     return screen['data']['id']
@@ -54,10 +55,22 @@ def create_my_screens():
     pass
 
 def add_to_playlist(screen_id:int):
-    headers = {'Content-type': 'application/x-www-form-urlencoded'}
-    payload = {'playlist_item[screen_id]':str(screen_id)}
-    resp = requests.post(url=f'{terminus_base_url}/playlists/{PLAYLIST_ID}/items', headers=headers, data=payload)
-    print(str(resp))
+    #NEED CSRF TOKEN AND COOKIE
+
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    payload = {'playlist_item[screen_id]': str(screen_id)}
+
+    with requests.Session() as s:
+        #Get Terminus session cookie
+        resp = s.get(url=f'{terminus_base_url}/playlists/{PLAYLIST_ID}/items/new')
+
+        #Parse out csrf token
+        soup = BeautifulSoup(resp.text, 'lxml')
+        csrf_token = soup.find('input',attrs = {'name':'_csrf_token'})['value']
+        payload['_csrf_token'] = csrf_token
+
+        #Post the screen
+        resp = s.post(url=f'{terminus_base_url}/playlists/{PLAYLIST_ID}/items', headers=headers, data=payload)
     return resp.ok
 
 
