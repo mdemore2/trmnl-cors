@@ -3,9 +3,8 @@ import logging
 import requests
 import json
 from dotenv import load_dotenv
-from pydantic import BaseModel
-from typing import List
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 load_dotenv()
 terminus_url = os.getenv('TERMINUS_URL')
@@ -17,13 +16,9 @@ logger = logging.getLogger(__name__)
 SCREEN_PREFIX = 'TRMNL_CORS'
 PLAYLIST_ID = '9'
 
-class Playlist(BaseModel):
-    id: int
-    screens: List[int]
-
 
 def add_screen(name: str, content: str, model_id:int) -> int:
-    prefixed_name = f'{SCREEN_PREFIX}-{name}'
+    prefixed_name = f'{SCREEN_PREFIX}-{name}-{datetime.now().strftime("%Y%m%d%H%M%S")}'
     data = {'screen':{
         'label':prefixed_name,
         'content':content,
@@ -51,9 +46,15 @@ def delete_my_screens():
         if str(screen['name']).startswith(SCREEN_PREFIX):
             delete_screen(screen['id'])
 
-def create_my_screens():
-    pass
-
+def create_my_screens(directory:str = 'templates/') -> list:
+    screens_to_add = []
+    for name in os.listdir(directory):
+        with open(os.path.join(directory, name)) as f:
+            content = f.read()
+            id = add_screen(name.split('.')[0],content, 1)
+            screens_to_add.append(id)
+    return screens_to_add
+            
 def add_to_playlist(screen_id:int):
     #NEED CSRF TOKEN AND COOKIE
 
@@ -73,24 +74,8 @@ def add_to_playlist(screen_id:int):
         resp = s.post(url=f'{terminus_base_url}/playlists/{PLAYLIST_ID}/items', headers=headers, data=payload)
     return resp.ok
 
-
-
 def reload():
     delete_my_screens()
-    pass
-    #get screens
-    #ITERATE over screens:
-        #delete screens with prefix
-    #ITERATE over template files:
-        #create screen
-        #add screen to playlist
-
-
-if __name__ == "__main__":
-    with open ('templates/news.html', 'r') as f:
-        content = f.read()
-    #add_screen('pytest',content, 1)
-    #get_screens()
-    add_to_playlist(131)
-    
-
+    screens_to_add = create_my_screens()
+    for id in screens_to_add:
+        add_to_playlist(id)
