@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from query import query_all
 from terminus import reload
@@ -22,9 +22,11 @@ def read_root():
     return {"Hello":"World"}
 
 @app.get('/refresh')
-def refresh_data():
-    query_all()
-    reload()
+def refresh_data(background_tasks: BackgroundTasks):
+    background_tasks.add_task(query_all)
+    background_tasks.add_task(reload)
+    #query_all()
+    #reload()
     return "Ahh... refreshing :)"
 
 @app.get('/news')
