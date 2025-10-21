@@ -28,11 +28,6 @@
     </div>
   </body>
   <script>
-    async function refreshPassthrough() {
-      let refreshUrl = "http://trmnl-cors:8032/refresh";
-      const resp = await fetch(refreshUrl);
-    }
-
     async function fetchXKCDImg() {
       let imgUrl = "https://imgs.xkcd.com/comics/null_hypothesis.png"; //default value in case error fetching
       try {
@@ -60,7 +55,6 @@
         console.error("Fetch/Parse Error:", error.message);
       }
     }
-    refreshPassthrough();
     fetchXKCDImg();
   </script>
 </html>
